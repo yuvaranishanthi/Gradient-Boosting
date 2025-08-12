@@ -1,0 +1,25 @@
+dataset_path: "housing.csv"
+
+model:
+  type: "GradientBoostingRegressor"
+  params:
+    n_estimators: 200
+    learning_rate: 0.1
+    random_state: 42
+
+preprocessing:
+  numeric_imputer: "median"
+  categorical_encoding: "onehot"
+
+features:
+  categorical:
+    - ocean_proximity
+  numeric:
+    - longitude
+    - latitude
+    - housing_median_age
+    - total_rooms
+    - total_bedrooms
+    - population
+    - households
+    - median_income

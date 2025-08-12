@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>California Housing Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+        h2 { text-align: center; color: #333; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background: #1a5cd8; }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            color: #2575fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Predict House Price</h2>
+        <form method="POST">
+            {% for feature in numeric_features %}
+                <label>{{ feature.replace('_', ' ') | capitalize }}:</label>
+                <input type="number" name="{{ feature }}" step="any" required>
+            {% endfor %}
+            {% for feature in categorical_features %}
+                <label>{{ feature.replace('_', ' ') | capitalize }}:</label>
+                <select name="{{ feature }}" required>
+                    <option value="NEAR BAY">NEAR BAY</option>
+                    <option value="INLAND">INLAND</option>
+                    <option value="NEAR OCEAN">NEAR OCEAN</option>
+                    <option value="ISLAND">ISLAND</option>
+                    <option value="1H OCEAN">1H OCEAN</option>
+                </select>
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result">Predicted Price: {{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
